@@ -57,8 +57,10 @@ def uploaded_file(filename):
 @app.route('/send', methods=['POST'])
 def send():
 	gcode = request.form['gcode']
-
-	#ser.open()
-	#ser.write(gcode.encode('utf-8'))
-	#ser.close()
-	return "sent: " + gcode
+	try:
+		ser.open()
+		ser.write(gcode.encode('utf-8'))
+		ser.close()	
+	except serial.SerialException:
+		return "no serial connection, try again"
+	return "sent to haas"
