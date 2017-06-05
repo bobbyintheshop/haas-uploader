@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ACE in Action</title>
+<title>Gcode editor  ( {{ name }} )</title>
 <style type="text/css" media="screen">
-    #editor { 
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        #editor { 
+        position: relative;
+        top: 0px;
+        left: 0px;
+        height:600px;
+        width:600px;
     }
+       
 </style>
+ <link rel="stylesheet" href="/static/foundation.min.css" />
 </head>
 <body>
-
-<div id="editor"> {{ gcode }} </div>
+<div class="row">
+    <div class="large-12 columns">
+        viewing gcode for file: {{ name }}
+    </div>
+</div>
+<div class="row">
+    <div class="large-7 columns">
+        <div id="editor"> {{ gcode }} </div>
+    </div>
+    <div class="large-5 columns">
+       <button type="button" class="alert button">HAAS</button>
+    </div>
+</div>
+<div class="row">
+    <div class="large-12 columns">
+        something
+    </div>
+</div>
     
 <script src="/static/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>

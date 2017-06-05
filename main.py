@@ -1,6 +1,11 @@
 import os
 from flask import Flask, redirect, request, url_for, send_from_directory, render_template
 from werkzeug.utils import secure_filename
+import serial
+
+ser = serial.Serial()
+ser.baudrate = 9600
+ser.port = 'dev/ttyUSB0'
 
 UPLOAD_FOLDER = '/Users/rr37653/uploads'
 ALLOWED_EXTENSIONS = set(['txt', 'nc'])
@@ -21,7 +26,7 @@ def index(): pass
 def ace(prog):
 	with open(os.path.join(app.config['UPLOAD_FOLDER'], prog), "r") as f:
 		content = f.read()
-	return render_template('ace.html', gcode=content)
+	return render_template('ace.html', gcode=content, name=prog)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
@@ -55,3 +60,11 @@ def upload_file():
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'],
                                filename)
+
+
+@app.route('send', methods=['POST'])
+def send():
+	if request.method == "POST":
+
+	else:
+		return redirect(url_for('upload'))
