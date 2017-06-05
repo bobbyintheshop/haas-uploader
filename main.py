@@ -46,15 +46,7 @@ def upload_file():
 			#return redirect(url_for('uploaded_file', filename=filename))
 			return redirect(url_for('ace', prog=filename))
 
-	return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+	return render_template('upload.html')
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
@@ -62,9 +54,11 @@ def uploaded_file(filename):
                                filename)
 
 
-@app.route('send', methods=['POST'])
+@app.route('/send', methods=['POST'])
 def send():
-	if request.method == "POST":
+	gcode = request.form['gcode']
 
-	else:
-		return redirect(url_for('upload'))
+	#ser.open()
+	#ser.write(gcode.encode('utf-8'))
+	#ser.close()
+	return "sent: " + gcode

@@ -25,20 +25,41 @@
         <div id="editor"> {{ gcode }} </div>
     </div>
     <div class="large-5 columns">
-       <button type="button" class="alert button">HAAS</button>
+       <button id="haas" type="button" class="alert button">HAAS</button>
+       <div id="status"></div>
     </div>
 </div>
 <div class="row">
     <div class="large-12 columns">
-        something
+        <button type="button" class="button">Save</button>
+        <a class="success button" href="/upload">Upload new</a>
     </div>
 </div>
     
 <script src="/static/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
+   
+</script>
+    
+<script src="/static/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+$(document).ready(function() {
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/gcode");
+    // all custom jQuery will go here
+    $('#haas').click(function() {
+        //alert(editor.getValue());
+        var gcode = editor.getValue();
+        $.post("/send", {gcode:gcode}, function(data) {
+            //alert('rx: ' + data);
+            $('#status').text('sent to haas');
+        });
+
+
+    })
+
+});
 </script>
 </body>
 </html>
